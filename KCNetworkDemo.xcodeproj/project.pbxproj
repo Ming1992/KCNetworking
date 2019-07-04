@@ -13,9 +13,9 @@
 		B318C5A821CB2CD6007E0C35 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B318C5A721CB2CD6007E0C35 /* Assets.xcassets */; };
 		B318C5AB21CB2CD6007E0C35 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B318C5A921CB2CD6007E0C35 /* LaunchScreen.storyboard */; };
 		B318C5B421CB2D06007E0C35 /* KCNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = B318C5B321CB2D06007E0C35 /* KCNetworking.swift */; };
-		B318C5B621CB3534007E0C35 /* KCNetworkRequestSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B318C5B521CB3534007E0C35 /* KCNetworkRequestSerializer.swift */; };
-		B318C5B821CB4104007E0C35 /* KCNetworkResponseSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B318C5B721CB4104007E0C35 /* KCNetworkResponseSerializer.swift */; };
-		B318C5BA21CB9589007E0C35 /* KCNetworkSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B318C5B921CB9589007E0C35 /* KCNetworkSessionManager.swift */; };
+		B33427C322CDA9A500CFFD9F /* 1-1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B33427C222CDA9A500CFFD9F /* 1-1.jpg */; };
+		B33427C822CDE55C00CFFD9F /* IndexTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33427C722CDE55C00CFFD9F /* IndexTableViewController.swift */; };
+		B33427CA22CDE58C00CFFD9F /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33427C922CDE58C00CFFD9F /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,9 +27,9 @@
 		B318C5AA21CB2CD6007E0C35 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B318C5AC21CB2CD6007E0C35 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B318C5B321CB2D06007E0C35 /* KCNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KCNetworking.swift; sourceTree = "<group>"; };
-		B318C5B521CB3534007E0C35 /* KCNetworkRequestSerializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KCNetworkRequestSerializer.swift; sourceTree = "<group>"; };
-		B318C5B721CB4104007E0C35 /* KCNetworkResponseSerializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KCNetworkResponseSerializer.swift; sourceTree = "<group>"; };
-		B318C5B921CB9589007E0C35 /* KCNetworkSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KCNetworkSessionManager.swift; sourceTree = "<group>"; };
+		B33427C222CDA9A500CFFD9F /* 1-1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "1-1.jpg"; sourceTree = "<group>"; };
+		B33427C722CDE55C00CFFD9F /* IndexTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexTableViewController.swift; sourceTree = "<group>"; };
+		B33427C922CDE58C00CFFD9F /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +69,9 @@
 				B318C5A721CB2CD6007E0C35 /* Assets.xcassets */,
 				B318C5A921CB2CD6007E0C35 /* LaunchScreen.storyboard */,
 				B318C5AC21CB2CD6007E0C35 /* Info.plist */,
+				B33427C222CDA9A500CFFD9F /* 1-1.jpg */,
+				B33427C722CDE55C00CFFD9F /* IndexTableViewController.swift */,
+				B33427C922CDE58C00CFFD9F /* DetailViewController.swift */,
 			);
 			path = KCNetworkDemo;
 			sourceTree = "<group>";
@@ -77,9 +80,6 @@
 			isa = PBXGroup;
 			children = (
 				B318C5B321CB2D06007E0C35 /* KCNetworking.swift */,
-				B318C5B521CB3534007E0C35 /* KCNetworkRequestSerializer.swift */,
-				B318C5B721CB4104007E0C35 /* KCNetworkResponseSerializer.swift */,
-				B318C5B921CB9589007E0C35 /* KCNetworkSessionManager.swift */,
 			);
 			path = KCNetwork;
 			sourceTree = "<group>";
@@ -116,6 +116,7 @@
 				TargetAttributes = {
 					B318C59C21CB2CD5007E0C35 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -143,6 +144,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B318C5AB21CB2CD6007E0C35 /* LaunchScreen.storyboard in Resources */,
+				B33427C322CDA9A500CFFD9F /* 1-1.jpg in Resources */,
 				B318C5A821CB2CD6007E0C35 /* Assets.xcassets in Resources */,
 				B318C5A621CB2CD5007E0C35 /* Main.storyboard in Resources */,
 			);
@@ -155,10 +157,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B318C5B621CB3534007E0C35 /* KCNetworkRequestSerializer.swift in Sources */,
-				B318C5B821CB4104007E0C35 /* KCNetworkResponseSerializer.swift in Sources */,
+				B33427C822CDE55C00CFFD9F /* IndexTableViewController.swift in Sources */,
 				B318C5A321CB2CD5007E0C35 /* ViewController.swift in Sources */,
-				B318C5BA21CB9589007E0C35 /* KCNetworkSessionManager.swift in Sources */,
+				B33427CA22CDE58C00CFFD9F /* DetailViewController.swift in Sources */,
 				B318C5A121CB2CD5007E0C35 /* AppDelegate.swift in Sources */,
 				B318C5B421CB2D06007E0C35 /* KCNetworking.swift in Sources */,
 			);
@@ -315,7 +316,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.budian.KCNetworkDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -333,7 +334,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.budian.KCNetworkDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
