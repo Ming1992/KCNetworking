@@ -201,36 +201,51 @@ class KCNetworkResponseSerializer: NSObject, URLSessionDownloadDelegate {
     class func response(_ data: Data?, response: URLResponse?, error: Error?, decrypt: Bool = false)->KCNetworkResponseItem{
         
         //  表示无数据返回
-        let item = KCNetworkResponseItem()
         if data != nil {
             let result = String.init(data: data!, encoding: String.Encoding.utf8)
-            item.responseString = result != nil ? result! : ""
+            let responseString = result != nil ? result! : ""
             
-            let obj = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments)
-            item.result = obj
+            let jsonObject = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments)
+            if jsonObject is Dictionary<String,Any> {
+                //  如果返回的数据对象是字典时，则处理
+                let tmpDic = jsonObject as! Dictionary<String, Any>
+                let code = tmpDic["code"]
+                let msg = tmpDic["msg"] as? String
+                let tmpData = tmpDic["data"]
+                
+                var tmpCode = 0
+                
+                if code is NSNumber {
+                    tmpCode = (code as! NSNumber).intValue
+                }
+                else if code is String {
+                    tmpCode = Int((code as! String))!
+                }
+                return KCNetworkResponseItem.init(responseString: responseString, code: tmpCode, msg: msg, data: tmpData)
+            }
         }
-        if error != nil{
-            item.msg = (error?.localizedDescription)!
+        return KCNetworkResponseItem.init(responseString: "", code: 1, msg: (error?.localizedDescription)!, data: nil)
+    }
+    
+    fileprivate class func downloadFileFinish(_ requestURL: String, locationPath: String)->String {
+        //  下载完数据，把缓存数据移动到本地保存
+        let fileName = requestURL.replacingOccurrences(of: "/", with: "_")
+        let documentsPath:String = NSHomeDirectory() + "/Documents/" + fileName
+        let fileManager = FileManager.default
+        if fileManager.fileExists(atPath: documentsPath) {
+            try! fileManager.removeItem(atPath: documentsPath)
         }
-        item.response = response
-        return item
+        try! fileManager.moveItem(atPath: locationPath, toPath: documentsPath)
+        return documentsPath
     }
     
     //
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
-        print("downloadTask:",downloadTask,"location:",location)
+        
+        let requestURL = downloadTask.currentRequest?.url?.absoluteString
+        let documentsPath = KCNetworkResponseSerializer.downloadFileFinish(requestURL!, locationPath: location.path)
         if self.finishedBlock != nil {
-            
-            let requestURL = downloadTask.currentRequest?.url?.absoluteString
-            let fileName = requestURL!.replacingOccurrences(of: "/", with: "_")
-            let documents:String = NSHomeDirectory() + "/Documents/" + fileName
-            let fileManager = FileManager.default
-            if fileManager.fileExists(atPath: documents) {
-                try! fileManager.removeItem(atPath: documents)
-            }
-            try! fileManager.moveItem(atPath: location.path, toPath: documents)
-            
-            self.finishedBlock!(documents)
+            self.finishedBlock!(documentsPath)
         }
     }
     
@@ -247,40 +262,11 @@ class KCNetworkResponseSerializer: NSObject, URLSessionDownloadDelegate {
     }
 }
 
-
-class KCNetworkResponseItem: NSObject {
-    fileprivate var result: Any?{
-        didSet{
-            if result is Dictionary<String,Any> {
-                //  如果返回的数据对象是字典时，则处理
-                let tmpDic = result as! Dictionary<String, Any>
-                let code = tmpDic["code"]
-                let msg = tmpDic["msg"]
-                let tmpData = tmpDic["data"]
-                
-                if code is NSNumber {
-                    self.code = (code as! NSNumber).intValue
-                }
-                else if code is String {
-                    self.code = Int((code as! String))!
-                }
-                
-                self.msg = msg as? String
-                
-                if self.code == 0 {
-                    //  code为0时，则返回接口返回的数据
-                    self.data = tmpData
-                }
-            }
-        }
-    }
+struct KCNetworkResponseItem {
     fileprivate var responseString: String = ""
-    
-    var response: URLResponse?
-    
     var code: Int = 0
-    var msg: String?
-    var data: Any?
+    var msg: String? = nil
+    var data: Any? = nil
     
     //  获得打印语句
     func public_printLog(){
@@ -313,12 +299,10 @@ class KCNetworkSessionManager: NSObject {
         
         let configuration = URLSessionConfiguration.default
         let session = URLSession.init(configuration: configuration, delegate: nil, delegateQueue: KCNetworkSessionManager.manager.sessionQueue)
+        
         let dataTask = session.dataTask(with: request) { (data, response, error) in
             let item = KCNetworkResponseSerializer.response(data, response: response, error: error)
-
-            print("当前线程.....",Thread.current,"主线程....",Thread.main)
-
-
+            
             #if DEBUG
             print("请求->", request.url?.absoluteString ?? "")
             item.public_printLog()
@@ -347,18 +331,10 @@ class KCNetworkSessionManager: NSObject {
             let session = URLSession.init(configuration: URLSessionConfiguration.default, delegate: nil, delegateQueue: KCNetworkSessionManager.manager.sessionQueue)
             let dataTask = session.downloadTask(with: URL.init(string: URLString)!) { (location, response, error) in
                 
-                let locationPath = location!.path
-                let fileName = URLString.replacingOccurrences(of: "/", with: "_")
-                let documents:String = NSHomeDirectory() + "/Documents/" + fileName
-                let fileManager = FileManager.default
-                if fileManager.fileExists(atPath: documents) {
-                    try! fileManager.removeItem(atPath: documents)
-                }
-                try! fileManager.moveItem(atPath: locationPath, toPath: documents)
-                
+                let documentsPath = KCNetworkResponseSerializer.downloadFileFinish(URLString, locationPath: location!.path)
                 if finishedBlock != nil {
                     DispatchQueue.main.async {
-                        finishedBlock!(documents)
+                        finishedBlock!(documentsPath)
                     }
                 }
             }

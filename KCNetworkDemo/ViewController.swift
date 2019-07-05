@@ -134,7 +134,7 @@ class ViewController: UIViewController {
         for index in 0..<10 {
             print(testId+":\(index)")
         }
-        print(OperationQueue.current?.name)
+//        print(OperationQueue.current?.name)
     }
 }
 
