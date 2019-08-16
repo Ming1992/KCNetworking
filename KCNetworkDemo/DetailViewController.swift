@@ -18,7 +18,10 @@ class DetailViewController: UIViewController {
         // Do any additional setup after loading the view.
         
 //        weak var weakSelf = self
-        KCNetworking<KCTestUser>().sendRequest("https://api.m.900sui.com/api/u/Login", parameters: ["username":"18616733727","password":"123456"], responseItemBlock: { (eMsg, user) in
+//        KCNetworking<KCTestUser>().sendRequest("https://api.m.900sui.com/api/u/Login", parameters: ["username":"18616733727","password":"123456"], responseItemBlock: { (eMsg, user) in
+//            print(user.nick)
+//        }, responseItemsBlock: nil)
+        KCNetworking<KCTestUser>().sendRequest("https://api.m.900sui.com/api/u/Login", parameters: nil, responseItemBlock: { (eMsg, user) in
             print(user.nick)
         }, responseItemsBlock: nil)
     }

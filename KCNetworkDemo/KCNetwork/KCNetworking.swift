@@ -176,11 +176,11 @@ extension URLRequest {
         
         switch requestType {
         case .GET,.PUT:
-            let tmp_URLString = URLString + "?" + (parameters?.URLEncode())!
+            let tmp_URLString = URLString + "?" + (parameters == nil ? "" : (parameters!.URLEncode()))
             url = URL.init(string: tmp_URLString)
             request = URLRequest.init(url: url!)
         case .POST,.DELETE:
-            request.httpBody = parameters?.URLJsonData()
+            request.httpBody = (parameters == nil ? nil : parameters!.URLJsonData())
         }
         request.httpMethod = requestType.rawValue
         request.timeoutInterval = 15.0

@@ -48,7 +48,6 @@ class IndexTableViewController: UITableViewController {
 
         // Configure the cell...
         cell.textLabel?.text = "\(indexPath.row + 1)"
-
         return cell
     }
     
