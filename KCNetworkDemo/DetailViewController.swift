@@ -42,5 +42,13 @@ class DetailViewController: UIViewController {
     
     @IBAction func action_start(){
  
+        //  下载图片数据
+        KCNetworkSessionManager.downloadRequest("http://img.shutung.com:81/2018/07/10/5b4481465d1ca.jpg", parameters: nil, progressBlock: { (progress) in
+            print(progress)
+        }) { (cacheFile) in
+
+            let image = UIImage.init(contentsOfFile: cacheFile)
+            print(cacheFile)
+        }
     }
 }

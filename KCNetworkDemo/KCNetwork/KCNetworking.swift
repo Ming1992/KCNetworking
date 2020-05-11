@@ -366,7 +366,7 @@ class KCNetworkSessionManager: NSObject {
     @discardableResult class func uploadFileRequest(_ URLString:String, filePath:String,finishedBlock:KCNetworkSessionUploadFinishedBlock?=nil)->URLSessionUploadTask {
         let request = URLRequest.init(url: URL.init(string: URLString)!, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: TimeInterval.init())
         let dataTask = URLSession.shared.uploadTask(with: request, fromFile: URL.init(fileURLWithPath: filePath)) { (data, response, error) in
-//            print("data:",data,"response:",response,"error:",error)
+            print("data:",data,"response:",response,"error:",error)
         }
         dataTask.resume()
         return dataTask

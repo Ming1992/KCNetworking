@@ -48,9 +48,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-//        KCNetworking<KCTestUser>().sendRequest("https://api.m.900sui.com/api/u/Login", parameters: ["username":"18616733727","password":"123456"], responseItemBlock: { (eMsg, user) in
-//            print(user.nick)
-//        }, responseItemsBlock: nil)
+        KCNetworking<KCTestUser>().sendRequest("https://api.m.900sui.com/api/u/Login", parameters: ["username":"18616733727","password":"123456"], responseItemBlock: { (eMsg, user) in
+            print(user.nick)
+        }, responseItemsBlock: nil)
         
         //  传参数
 //        KCNetworking<KCTestUser>().sendRequest("https://api.m.900sui.com/api/u/Login", parameters: ["username":"18616733727","password":"123456"], responseItemBlock: { (eMsg, user) in
